@@ -138,6 +138,10 @@ async def create_instagram_account():
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({"status": "running", "endpoints": ["/gen"]})
+
 @app.route('/gen', methods=['GET'])
 def gen_accounts():
     count = request.args.get('count', default=1, type=int)
@@ -155,3 +159,6 @@ def gen_accounts():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
+
+# Export the app for Vercel
+app = app
